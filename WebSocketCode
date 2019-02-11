@@ -1,0 +1,16 @@
+//This code creates a websocket to listen for data about a certain pair
+
+const BTC_USD = 'BTC-USD';
+const websocket = new GDAX.WebsocketClient([BTC_USD]);
+
+const websocketCallback = (data) => console.dir(data);
+websocket.on('message', websocketCallback);
+
+//This code narrows the data listening to only about current trades and orders
+
+const websocketCallback = (data) => {
+
+ 	if (!(data.type === 'done' && data.reason === 'filled'))
+
+     	return;
+ 	console.dir(data);
